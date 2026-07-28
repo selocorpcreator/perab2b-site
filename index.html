@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PeraB2B — Toptan ve Perakende Yönetimi</title>
+<meta name="description" content="Cari, ürün, teslimat ve borç takibini tek uygulamadan yönetin. Toptancılar ve esnaflar için tasarlandı.">
+<style>
+  :root{
+    --bg:#0a0e17;
+    --bg2:#0f1420;
+    --card:#151b2b;
+    --card-hi:#1b2333;
+    --border:#232c40;
+    --blue:#3b82f6;
+    --blue-hi:#60a5fa;
+    --green:#16a34a;
+    --green-hi:#22c55e;
+    --ink:#f1f5f9;
+    --muted:#8b97ab;
+    --muted2:#5f6b80;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+    line-height:1.6;
+    overflow-x:hidden;
+  }
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1140px;margin:0 auto;padding:0 24px}
+
+  /* NAV */
+  nav{
+    position:sticky;top:0;z-index:50;
+    background:rgba(10,14,23,.82);backdrop-filter:blur(14px);
+    border-bottom:1px solid var(--border);
+  }
+  .nav-inner{display:flex;align-items:center;justify-content:space-between;height:66px}
+  .brand{display:flex;align-items:center;gap:11px;font-weight:800;font-size:19px;letter-spacing:-.02em}
+  .logo{width:38px;height:38px;border-radius:11px;background:linear-gradient(135deg,#16a34a,#065f46);display:flex;align-items:center;justify-content:center}
+  .logo svg{width:22px;height:22px}
+  .nav-cta{background:var(--blue);color:#fff;padding:9px 18px;border-radius:10px;font-weight:700;font-size:14px;transition:.2s}
+  .nav-cta:hover{background:var(--blue-hi);transform:translateY(-1px)}
+
+  /* HERO */
+  .hero{position:relative;padding:80px 0 60px;overflow:hidden}
+  .hero::before{
+    content:"";position:absolute;top:-200px;left:50%;transform:translateX(-50%);
+    width:900px;height:600px;
+    background:radial-gradient(ellipse at center,rgba(59,130,246,.18),transparent 65%);
+    pointer-events:none;
+  }
+  .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:50px;align-items:center;position:relative}
+  .eyebrow{display:inline-flex;align-items:center;gap:8px;background:var(--card);border:1px solid var(--border);color:var(--muted);padding:7px 14px;border-radius:100px;font-size:13px;font-weight:600;margin-bottom:22px}
+  .eyebrow .dot{width:7px;height:7px;border-radius:50%;background:var(--green-hi);box-shadow:0 0 0 3px rgba(34,197,94,.2)}
+  h1{font-size:clamp(38px,5.4vw,60px);line-height:1.05;letter-spacing:-.03em;font-weight:800;margin-bottom:20px}
+  h1 .accent{background:linear-gradient(120deg,var(--blue-hi),var(--green-hi));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .lead{font-size:19px;color:var(--muted);max-width:520px;margin-bottom:32px}
+  .btn-row{display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+  .btn-primary{background:var(--blue);color:#fff;padding:15px 28px;border-radius:13px;font-weight:700;font-size:16px;display:inline-flex;align-items:center;gap:10px;transition:.2s}
+  .btn-primary:hover{background:var(--blue-hi);transform:translateY(-2px);box-shadow:0 12px 30px -8px rgba(59,130,246,.5)}
+  .btn-ghost{color:var(--ink);padding:15px 22px;border-radius:13px;font-weight:700;font-size:16px;border:1px solid var(--border);transition:.2s}
+  .btn-ghost:hover{background:var(--card);border-color:var(--muted2)}
+
+  /* HERO PHONE */
+  .hero-phone{justify-self:center;position:relative}
+  .phone{width:290px;border-radius:42px;background:#05070c;padding:11px;box-shadow:0 40px 90px -30px rgba(0,0,0,.9),0 0 0 1px var(--border);position:relative}
+  .phone::before{content:"";position:absolute;top:20px;left:50%;transform:translateX(-50%);width:90px;height:26px;background:#05070c;border-radius:0 0 16px 16px;z-index:3}
+  .phone img{width:100%;border-radius:32px;display:block}
+  .float-badge{position:absolute;background:var(--card);border:1px solid var(--border);border-radius:14px;padding:12px 15px;display:flex;align-items:center;gap:11px;box-shadow:0 18px 40px -12px rgba(0,0,0,.7);animation:float 4s ease-in-out infinite}
+  .float-badge .ic{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+  .float-badge .lbl{font-size:11px;color:var(--muted)}
+  .float-badge .val{font-size:15px;font-weight:800;line-height:1.1}
+  .fb-1{top:80px;left:-70px}
+  .fb-2{bottom:90px;right:-60px;animation-delay:1.5s}
+  @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+
+  /* SECTION SHELL */
+  section{padding:76px 0}
+  .sec-head{text-align:center;max-width:640px;margin:0 auto 52px}
+  .sec-eyebrow{color:var(--blue-hi);font-weight:700;font-size:13px;letter-spacing:.08em;text-transform:uppercase;margin-bottom:12px}
+  h2{font-size:clamp(28px,3.6vw,40px);letter-spacing:-.025em;font-weight:800;line-height:1.12}
+  .sec-head p{color:var(--muted);font-size:17px;margin-top:14px}
+
+  /* VIDEO */
+  .video-wrap{max-width:340px;margin:0 auto;border-radius:36px;overflow:hidden;box-shadow:0 40px 90px -30px rgba(0,0,0,.9),0 0 0 1px var(--border);background:#05070c;padding:10px}
+  .video-wrap video{width:100%;border-radius:28px;display:block}
+
+  /* FEATURES */
+  .feat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  .feat{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:26px;transition:.25s}
+  .feat:hover{transform:translateY(-4px);border-color:var(--muted2);background:var(--card-hi)}
+  .feat .ic{width:48px;height:48px;border-radius:13px;display:flex;align-items:center;justify-content:center;margin-bottom:18px}
+  .feat h3{font-size:18px;font-weight:700;margin-bottom:8px;letter-spacing:-.01em}
+  .feat p{color:var(--muted);font-size:14.5px}
+  .ic-blue{background:rgba(59,130,246,.15);color:var(--blue-hi)}
+  .ic-green{background:rgba(34,197,94,.15);color:var(--green-hi)}
+  .ic-amber{background:rgba(245,158,11,.15);color:#fbbf24}
+  .ic-violet{background:rgba(139,92,246,.15);color:#a78bfa}
+  .ic-rose{background:rgba(244,63,94,.15);color:#fb7185}
+  .ic-cyan{background:rgba(6,182,212,.15);color:#22d3ee}
+
+  /* SCREENS GALLERY */
+  .gallery{display:flex;gap:22px;overflow-x:auto;padding:10px 24px 30px;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch}
+  .gallery::-webkit-scrollbar{height:8px}
+  .gallery::-webkit-scrollbar-thumb{background:var(--border);border-radius:10px}
+  .shot{flex:0 0 auto;width:230px;scroll-snap-align:center}
+  .shot .frame{border-radius:32px;background:#05070c;padding:9px;box-shadow:0 24px 50px -20px rgba(0,0,0,.8),0 0 0 1px var(--border)}
+  .shot img{width:100%;border-radius:24px;display:block}
+  .shot .cap{text-align:center;margin-top:14px;font-size:14px;font-weight:600;color:var(--muted)}
+
+  /* CTA */
+  .cta-band{background:linear-gradient(135deg,var(--card),var(--bg2));border:1px solid var(--border);border-radius:26px;padding:56px 40px;text-align:center;position:relative;overflow:hidden}
+  .cta-band::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 30% 20%,rgba(59,130,246,.15),transparent 55%);pointer-events:none}
+  .cta-band h2{position:relative;margin-bottom:16px}
+  .cta-band p{position:relative;color:var(--muted);font-size:17px;max-width:480px;margin:0 auto 28px}
+
+  /* FOOTER */
+  footer{border-top:1px solid var(--border);padding:38px 0;margin-top:20px}
+  .foot-inner{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px}
+  .foot-links{display:flex;gap:24px;font-size:14px;color:var(--muted)}
+  .foot-links a:hover{color:var(--ink)}
+  .foot-copy{font-size:13px;color:var(--muted2)}
+
+  /* reveal */
+  .reveal{opacity:0;transform:translateY(24px);transition:.7s cubic-bezier(.2,.7,.2,1)}
+  .reveal.in{opacity:1;transform:none}
+
+  @media(max-width:900px){
+    .hero-grid{grid-template-columns:1fr;gap:40px;text-align:center}
+    .lead{margin-left:auto;margin-right:auto}
+    .btn-row{justify-content:center}
+    .eyebrow{margin-left:auto;margin-right:auto}
+    .feat-grid{grid-template-columns:1fr 1fr}
+    .fb-1{left:-30px}.fb-2{right:-24px}
+  }
+  @media(max-width:560px){
+    .feat-grid{grid-template-columns:1fr}
+    .float-badge{display:none}
+    section{padding:56px 0}
+    .cta-band{padding:40px 24px}
+  }
+  @media(prefers-reduced-motion:reduce){
+    *{animation:none!important;transition:none!important}
+    .reveal{opacity:1;transform:none}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap nav-inner">
+    <div class="brand">
+      <span class="logo">
+        <svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg"><g fill="#fff"><rect x="430" y="330" width="250" height="140" rx="16"/><rect x="430" y="490" width="250" height="140" rx="16"/><rect x="360" y="300" width="46" height="420" rx="23"/><rect x="300" y="300" width="110" height="46" rx="23"/><rect x="360" y="674" width="240" height="46" rx="23"/><circle cx="395" cy="775" r="60"/></g></svg>
+      </span>
+      PeraB2B
+    </div>
+    <a class="nav-cta" href="#indir">Uygulamayı İndir</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap hero-grid">
+    <div class="hero-copy">
+      <span class="eyebrow"><span class="dot"></span> Toptancılar ve esnaflar için</span>
+      <h1>İşinizi <span class="accent">cebinizden</span> yönetin</h1>
+      <p class="lead">Cari, ürün, teslimat ve borç takibi tek uygulamada. Defter tutmaya, dağınık notlara ve unutulan borçlara son verin.</p>
+      <div class="btn-row">
+        <a class="btn-primary" href="#indir">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M3 20.5v-17c0-.6.3-1 .8-1.3L13.5 12 3.8 21.8c-.5-.3-.8-.7-.8-1.3zM16.8 15.3l-2.4-2.4 2.6-2.6 3 1.7c.9.5.9 1.8 0 2.3l-3.2 1zM5.7 2.1l9.4 5.4-2.3 2.3-7.1-7.1c-.1-.3 0-.5 0-.6zM12.8 14.2l2.3 2.3-9.4 5.4c0-.1-.1-.3 0-.6l7.1-7.1z"/></svg>
+          Google Play'de
+        </a>
+        <a class="btn-ghost" href="#video">Nasıl çalışır?</a>
+      </div>
+    </div>
+    <div class="hero-phone">
+      <div class="phone">
+        <img src="img/perab2b1.png" alt="PeraB2B anasayfa ekranı">
+      </div>
+      <div class="float-badge fb-1">
+        <span class="ic ic-blue"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M3 17l6-6 4 4 8-8"/></svg></span>
+        <div><div class="lbl">Toplam Ciro</div><div class="val">₺22.250</div></div>
+      </div>
+      <div class="float-badge fb-2">
+        <span class="ic ic-green"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg></span>
+        <div><div class="lbl">Teslimat</div><div class="val">Tamamlandı</div></div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section id="video">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="sec-eyebrow">Tanıtım</div>
+      <h2>30 saniyede PeraB2B</h2>
+      <p>Uygulamanın nasıl çalıştığını izleyin — cari eklemekten teslimat ve tahsilata kadar.</p>
+    </div>
+    <div class="video-wrap reveal">
+      <video controls playsinline preload="metadata" poster="img/perab2b1.png">
+        <source src="img/tanitim.mp4" type="video/mp4">
+        Tarayıcınız video oynatmayı desteklemiyor.
+      </video>
+    </div>
+  </div>
+</section>
+
+<section style="background:var(--bg2)">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="sec-eyebrow">Özellikler</div>
+      <h2>Tek uygulama, tüm işiniz</h2>
+      <p>Toptan ve perakende işinizi yönetmek için ihtiyacınız olan her şey.</p>
+    </div>
+    <div class="feat-grid">
+      <div class="feat reveal">
+        <div class="ic ic-blue"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/></svg></div>
+        <h3>Cari Takibi</h3>
+        <p>Müşterilerinizi kaydedin; borç, teslimat ve tahsilat bilgisini anında görün. Tek dokunuşla arayın veya WhatsApp'tan özet gönderin.</p>
+      </div>
+      <div class="feat reveal">
+        <div class="ic ic-green"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.5 7.3L12 2 3.5 7.3M12 22V12M20.5 7.3v9.4L12 22M3.5 7.3v9.4L12 22M20.5 7.3L12 12 3.5 7.3"/></svg></div>
+        <h3>Ürün & Stok</h3>
+        <p>Esnek birimlerle (adet, kg, ton, koli, palet) kaydedin. Hazır katalogdan yüzlerce ürünü tek dokunuşla ekleyin, stok değerinizi görün.</p>
+      </div>
+      <div class="feat reveal">
+        <div class="ic ic-amber"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13" rx="2"/><path d="M16 8h4l3 3v5h-7V8zM5.5 18.5a2 2 0 1 0 4 0 2 2 0 0 0-4 0zM17.5 18.5a2 2 0 1 0 4 0 2 2 0 0 0-4 0z"/></svg></div>
+        <h3>Teslimat Yönetimi</h3>
+        <p>Teslimatları ekleyin, tamamlandı olarak işaretleyin. Bu hafta/bu ay filtreleyin. kg veya ton satın, tutar otomatik hesaplansın.</p>
+      </div>
+      <div class="feat reveal">
+        <div class="ic ic-rose"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+        <h3>Borç & Tahsilat</h3>
+        <p>Her cari için borç otomatik hesaplanır. Tahsilat girince düşer, silince geri eklenir. Kalan bakiyenizi anlık takip edin.</p>
+      </div>
+      <div class="feat reveal">
+        <div class="ic ic-violet"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg></div>
+        <h3>Raporlar & PDF</h3>
+        <p>Günlük ve aylık ciro, tahsilat ve teslimat raporlarını görün. Tek dokunuşla PDF olarak paylaşın.</p>
+      </div>
+      <div class="feat reveal">
+        <div class="ic ic-cyan"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 10h-1a5 5 0 0 0-9.7-1.7A4 4 0 0 0 6 16h12a3 3 0 0 0 0-6zM12 12v6M9 15l3 3 3-3"/></svg></div>
+        <h3>Güvenli Bulut Yedek</h3>
+        <p>Verileriniz hesabınıza bağlı güvenle saklanır. Telefon değişse bile giriş yapınca geri gelir. İnternetsiz de çalışır.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="sec-eyebrow">Ekranlar</div>
+      <h2>Sade, hızlı, anlaşılır</h2>
+      <p>Kaydırarak uygulamanın ekranlarını inceleyin.</p>
+    </div>
+  </div>
+  <div class="gallery">
+    <div class="shot"><div class="frame"><img src="img/perab2b2.png" alt="Cariler listesi"></div><div class="cap">Cariler Listesi</div></div>
+    <div class="shot"><div class="frame"><img src="img/perab2b3.png" alt="Cari detayı"></div><div class="cap">Cari Detayı</div></div>
+    <div class="shot"><div class="frame"><img src="img/perab2b4.png" alt="Teslimat ekleme"></div><div class="cap">Teslimat Ekle</div></div>
+    <div class="shot"><div class="frame"><img src="img/perab2b5.png" alt="Teslimatlar"></div><div class="cap">Teslimatlar</div></div>
+    <div class="shot"><div class="frame"><img src="img/perab2b6.png" alt="Ürünler"></div><div class="cap">Ürünler & Stok</div></div>
+    <div class="shot"><div class="frame"><img src="img/perab2b7.png" alt="Raporlar"></div><div class="cap">Raporlar</div></div>
+    <div class="shot"><div class="frame"><img src="img/perab2b8.png" alt="Ayarlar"></div><div class="cap">Ayarlar & Yedek</div></div>
+  </div>
+</section>
+
+<section id="indir">
+  <div class="wrap">
+    <div class="cta-band reveal">
+      <h2>İşinizi bugün düzene sokun</h2>
+      <p>PeraB2B'yi ücretsiz indirin. Cari, ürün ve teslimatlarınızı dakikalar içinde kaydetmeye başlayın.</p>
+      <a class="btn-primary" href="#" id="playLink" style="position:relative">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M3 20.5v-17c0-.6.3-1 .8-1.3L13.5 12 3.8 21.8c-.5-.3-.8-.7-.8-1.3zM16.8 15.3l-2.4-2.4 2.6-2.6 3 1.7c.9.5.9 1.8 0 2.3l-3.2 1zM5.7 2.1l9.4 5.4-2.3 2.3-7.1-7.1c-.1-.3 0-.5 0-.6zM12.8 14.2l2.3 2.3-9.4 5.4c0-.1-.1-.3 0-.6l7.1-7.1z"/></svg>
+        Google Play'den İndir
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot-inner">
+    <div class="brand" style="font-size:16px">
+      <span class="logo" style="width:32px;height:32px"><svg viewBox="0 0 1024 1024"><g fill="#fff"><rect x="430" y="330" width="250" height="140" rx="16"/><rect x="430" y="490" width="250" height="140" rx="16"/><rect x="360" y="300" width="46" height="420" rx="23"/><rect x="300" y="300" width="110" height="46" rx="23"/><rect x="360" y="674" width="240" height="46" rx="23"/><circle cx="395" cy="775" r="60"/></g></svg></span>
+      PeraB2B
+    </div>
+    <div class="foot-links">
+      <a href="https://selocorpcreator.github.io/perakende-hub-gizlilik/">Gizlilik Politikası</a>
+      <a href="mailto:selokoc@outlook.com">İletişim</a>
+    </div>
+    <div class="foot-copy">© 2026 PeraB2B — Selo Corp Creator</div>
+  </div>
+</footer>
+
+<script>
+  // scroll reveal
+  const io=new IntersectionObserver((es)=>{
+    es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})
+  },{threshold:.15});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+  // Play Store linkini buraya yapıştır (yayınlanınca):
+  // document.getElementById('playLink').href = 'https://play.google.com/store/apps/details?id=com.perakendehub.app';
+</script>
+</body>
+</html>
